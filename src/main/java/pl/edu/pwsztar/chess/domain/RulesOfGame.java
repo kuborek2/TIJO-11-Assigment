@@ -27,7 +27,43 @@ public interface RulesOfGame {
         @Override
         public boolean isCorrectMove(Point source, Point destination) {
             // TODO: Prosze dokonczyc implementacje
-            return true;
+            if( source.getX() == destination.getX() || source.getY() == destination.getY() )
+                return false;
+            else if ( source.getX() - destination.getX() > -3 && source.getX() - destination.getX() < 3 &&
+                    source.getY() - destination.getY() > -3 && source.getY() - destination.getY() < 3 &&
+                    Math.abs(source.getX() - destination.getX()) != Math.abs(source.getY() - destination.getY()) )
+                return true;
+            return false;
+        }
+    }
+
+    class Rook implements RulesOfGame {
+
+        @Override
+        public boolean isCorrectMove(Point source, Point destination) {
+            if( source.getX() == destination.getX() && source.getY() == destination.getY() )
+                return false;
+            else if (
+                    (source.getX() == destination.getX() && source.getY() != destination.getY()) ||
+                    (source.getY() == destination.getY() && source.getX() != destination.getX())
+                )
+                return true;
+            return false;
+        }
+    }
+
+    class Pawn implements RulesOfGame {
+
+        @Override
+        public boolean isCorrectMove(Point source, Point destination) {
+            if( source.getX() == destination.getX() && source.getY() == destination.getY() )
+                return false;
+            else if (
+                    (source.getX() == destination.getX() && source.getY() != destination.getY()) ||
+                            (source.getY() == destination.getY() && source.getX() != destination.getX())
+            )
+                return true;
+            return false;
         }
     }
 

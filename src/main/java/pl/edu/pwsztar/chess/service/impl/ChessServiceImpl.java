@@ -12,24 +12,32 @@ import pl.edu.pwsztar.chess.service.ChessService;
 public class ChessServiceImpl implements ChessService {
     private RulesOfGame bishop;
     private RulesOfGame knight;
+    private RulesOfGame rook;
     // ...
 
     public ChessServiceImpl() {
         bishop = new RulesOfGame.Bishop();
         knight = new RulesOfGame.Knight();
+        rook = new RulesOfGame.Rook();
         // ...
     }
 
     public boolean isCorrectMove(FigureMoveDto figureMoveDto) {
 
+        Point sourceCoordinates = Point.convertChessCoordinatesPoint2D(figureMoveDto.getSource());
+        Point desCoordinates = Point.convertChessCoordinatesPoint2D(figureMoveDto.getDestination());
+
         // refaktoryzacja?
         switch (figureMoveDto.getType()) {
             case BISHOP:
                 // wywolaj konwerter punktow oraz popraw ponizszy kod
-                return bishop.isCorrectMove(new Point(0, 0), new Point(1, 1));
+                return bishop.isCorrectMove(sourceCoordinates, desCoordinates);
             case KNIGHT:
                 // wywolaj konwerter punktow oraz popraw ponizszy kod
-                return knight.isCorrectMove(new Point(0, 0), new Point(1, 1));
+                return knight.isCorrectMove(sourceCoordinates, desCoordinates);
+            case ROOK:
+                // wywolaj konwerter punktow oraz popraw ponizszy kod
+                return rook.isCorrectMove(sourceCoordinates, desCoordinates);
         }
 
         return false;
